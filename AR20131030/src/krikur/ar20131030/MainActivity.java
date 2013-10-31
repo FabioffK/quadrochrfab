@@ -32,11 +32,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private Sensor sensor;
 	private SensorManager sManager;
 	private float seitwärts, vorwärts;
-	// HALLO CHRISTIAN
-	// und Tschüss
-	// Fabi Ende
-
-	// private boolean bewegen;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
