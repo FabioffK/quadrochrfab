@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
+
+    <Button
+        android:id="@+id/verbinden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_below="@+id/textView"
+        android:text="verbinden" />
+
+    <Button
+        android:id="@+id/abheben"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/verbinden"
+        android:layout_below="@+id/verbinden"
+        android:text="abheben" />
+
+    <Button
+        android:id="@+id/rechts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/abheben"
+        android:layout_below="@+id/abheben"
+        android:text="rechts"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/landen"
+        style="@style/btnOrange"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="landen" />
+
+    <Button
+        android:id="@+id/bewegen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rechts"
+        android:layout_below="@+id/rechts"
+        android:text="bewegen" />
+
+    <TextView
+        android:id="@+id/seite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/bewegen"
+        android:layout_toRightOf="@+id/bewegen"
+        android:text="@string/seite" />
+
+    <TextView
+        android:id="@+id/vorhinter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bewegen"
+        android:layout_toRightOf="@+id/bewegen"
+        android:text="@string/vor" />
+
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bewegen"
+        android:max="20000"
+        android:progress="10000" />
+
+    <TextView
+        android:id="@+id/dreh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekBar1"
+        android:layout_centerHorizontal="true"
+        android:text="Drehung" />
+
+</RelativeLayout>
