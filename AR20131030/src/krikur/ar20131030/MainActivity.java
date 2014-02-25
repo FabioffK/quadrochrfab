@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.codeminders.ardrone.ARDrone;
 
 public class MainActivity extends Activity implements SensorEventListener {
-
+// Test
 	private static ARDrone drone;
 	private static final long CONNECTION_TIMEOUT = 10000;
 	private static final String TAG = "AR.Drone";
@@ -106,7 +106,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		// /////////////Geschwindigkeit der Aktualisierung evtl. noch anpassen
 		sManager.registerListener(this, sensor,
 				SensorManager.SENSOR_DELAY_NORMAL);
-		//
+
 		// (findViewById(R.id.bewegen)).setOnClickListener(new OnClickListener()
 		// {
 		// //
