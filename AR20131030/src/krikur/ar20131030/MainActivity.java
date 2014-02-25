@@ -106,7 +106,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		// /////////////Geschwindigkeit der Aktualisierung evtl. noch anpassen
 		sManager.registerListener(this, sensor,
 				SensorManager.SENSOR_DELAY_NORMAL);
-
+		//
 		// (findViewById(R.id.bewegen)).setOnClickListener(new OnClickListener()
 		// {
 		// //
