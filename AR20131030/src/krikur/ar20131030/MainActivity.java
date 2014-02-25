@@ -28,6 +28,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private static final long CONNECTION_TIMEOUT = 10000;
 	private static final String TAG = "AR.Drone";
 
+	private static final Flugweg FLUGWEG = new Flugweg();
+
 	// Das er die Bewegung des Handys erkennt!
 	private Sensor sensor;
 	private SensorManager sManager;
@@ -55,25 +57,26 @@ public class MainActivity extends Activity implements SensorEventListener {
 				// TODO Auto-generated method stub
 				try {
 					drone.clearEmergencySignal();
-					drone.trim(); 
+					drone.trim();
 					drone.takeOff();
 				} catch (Throwable e) {
 					Log.e(TAG, "Faliled to execute take off command", e);
 				}
 			}
 		});
-//		(findViewById(R.id.rechts)).setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				try {
-//					drone.move(0, 0, 0, 0.15f);
-//				} catch (Throwable e) {
-//					Log.e(TAG, "Faliled to execute rechts command", e);
-//				}
-//			}
-//		});
+		// (findViewById(R.id.rechts)).setOnClickListener(new OnClickListener()
+		// {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// // TODO Auto-generated method stub
+		// try {
+		// drone.move(0, 0, 0, 0.15f);
+		// } catch (Throwable e) {
+		// Log.e(TAG, "Faliled to execute rechts command", e);
+		// }
+		// }
+		// });
 		(findViewById(R.id.landen)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -84,6 +87,16 @@ public class MainActivity extends Activity implements SensorEventListener {
 				} catch (Throwable e) {
 					Log.e(TAG, "Faliled to execute land command", e);
 				}
+			}
+		});
+
+		(findViewById(R.id.home)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				Flugweg.home(drone);
+
 			}
 		});
 
@@ -158,6 +171,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 		try {
 			drone.move(0, 0, 0, stärke);
+			FLUGWEG.addFlugbefehl(new Flugbefehl(0, 0, 0, stärke));
 		} catch (Throwable e) {
 			Log.e(TAG, "Faliled to execute rechts command", e);
 		}
