@@ -64,9 +64,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 		});
 //		(findViewById(R.id.rechts)).setOnClickListener(new OnClickListener() {
 //
-		
-		// Hallo
-		
 //			@Override
 //			public void onClick(View v) {
 //				// TODO Auto-generated method stub
