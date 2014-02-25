@@ -7,11 +7,15 @@ import android.support.v4.util.LogWriter;
 import android.util.Log;
 
 import com.codeminders.ardrone.ARDrone;
+import com.codeminders.ardrone.NavData;
+import com.codeminders.ardrone.NavDataListener;
 
-public class Flugweg {
+public class Flugweg implements NavDataListener{
 	private static Stack<Flugbefehl> flugwegObjekte = new Stack<Flugbefehl>();
 	private static Flugbefehl flugbefehl;
 
+
+	
 	public Flugweg() {
 
 	}
@@ -21,10 +25,10 @@ public class Flugweg {
 	}
 
 	public static void home(ARDrone drone) {
-		Log.d("Flugweg", "ich komm jetzt home");
+		Log.i("Flugweg", "ich komm jetzt home");
 		while (!flugwegObjekte.empty()) {
 			flugbefehl = flugwegObjekte.pop();
-			Log.d("Flugweg",
+			Log.i("Flugweg",
 					"Hab soviel Speed: " + flugbefehl.getAngular_speed());
 			try {
 				drone.move(flugbefehl.getLeft_right_tilt(),
@@ -36,8 +40,16 @@ public class Flugweg {
 				e.printStackTrace();
 
 			}
+			
+			
 
 		}
-		Log.d("Flugweg", "ich bin den Weg zurückgeflogen");
+		Log.i("Flugweg", "ich bin den Weg zurückgeflogen");
+	}
+
+	@Override
+	public void navDataReceived(NavData nd) {
+		// TODO Auto-generated method stub
+		
 	}
 }

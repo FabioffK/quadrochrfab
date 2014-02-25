@@ -2,6 +2,8 @@ package krikur.ar20131030;
 
 import java.net.InetAddress;
 
+import krikur.ar20131030.R.id;
+
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
@@ -21,6 +23,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.codeminders.ardrone.ARDrone;
+import com.codeminders.ardrone.NavData;
+import com.codeminders.ardrone.NavDataListener;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
@@ -95,7 +99,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 			@Override
 			public void onClick(View v) {
 
-				Log.d(TAG, "Home wurde geklickt");
+				Log.i(TAG, "Home wurde geklickt");
 				Flugweg.home(drone);
 
 			}
@@ -155,7 +159,18 @@ public class MainActivity extends Activity implements SensorEventListener {
 	 * spin left.
 	 **/
 	private void drehen(float stärke) {
-		// TODO Auto-generated method stub
+
+		drone.addNavDataListener(new NavDataListener() {
+
+			@Override
+			public void navDataReceived(NavData nd) {
+
+				((TextView) findViewById(id.textView)).setText("Batterie: "
+						+ nd.getBattery());
+				((TextView) findViewById(id.textView)).setText("NavData: "
+						+ nd.toString());
+			}
+		});
 
 		String richtung = "keine";
 		if (stärke > 0) {
