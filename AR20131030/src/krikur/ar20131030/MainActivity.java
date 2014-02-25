@@ -95,6 +95,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 			@Override
 			public void onClick(View v) {
 
+				Log.d(TAG, "Home wurde geklickt");
 				Flugweg.home(drone);
 
 			}

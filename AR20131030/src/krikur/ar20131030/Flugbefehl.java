@@ -42,10 +42,10 @@ public class Flugbefehl {
 	 */
 	public Flugbefehl(float left_right_tilt, float front_back_tilt,
 			float vertical_speed, float angular_speed) {
-		this.angular_speed = angular_speed;
-		this.front_back_tilt = front_back_tilt;
-		this.left_right_tilt = left_right_tilt;
-		this.vertical_speed = vertical_speed;
+		this.angular_speed = angular_speed * -1;
+		this.front_back_tilt = front_back_tilt * -1;
+		this.left_right_tilt = left_right_tilt * -1;
+		this.vertical_speed = vertical_speed * -1;
 	}
 
 	public float getLeft_right_tilt() {
