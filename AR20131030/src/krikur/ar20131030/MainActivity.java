@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private static final long CONNECTION_TIMEOUT = 10000;
 	private static final String TAG = "AR.Drone";
 
-	// Das er die Bewegung des Handy erkennt
+	// Das er die Bewegung des Handys erkennt!
 	private Sensor sensor;
 	private SensorManager sManager;
 	private float seitwärts, vorwärts;
