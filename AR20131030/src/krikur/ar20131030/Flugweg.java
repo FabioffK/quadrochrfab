@@ -9,7 +9,7 @@ public class Flugweg {
 	private static Stack<Flugbefehl> flugwegObjekte = new Stack<Flugbefehl>();
 	private static Flugbefehl flugbefehl;
 
-// Test
+
 	public Flugweg() {
 
 	}

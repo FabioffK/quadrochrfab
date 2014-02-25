@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.codeminders.ardrone.ARDrone;
 
 public class MainActivity extends Activity implements SensorEventListener {
-// Test
+
 	private static ARDrone drone;
 	private static final long CONNECTION_TIMEOUT = 10000;
 	private static final String TAG = "AR.Drone";
