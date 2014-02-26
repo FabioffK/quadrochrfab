@@ -97,4 +97,12 @@
         android:layout_centerHorizontal="true"
         android:text="Drehung" />
 
+    <Button
+        android:id="@+id/infoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/verbinden"
+        android:layout_centerHorizontal="true"
+        android:text="logINFO" />
+
 </RelativeLayout>

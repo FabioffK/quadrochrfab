@@ -30,7 +30,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 	private static ARDrone drone;
 	private static final long CONNECTION_TIMEOUT = 10000;
-	private static final String TAG = "AR.Drone";
+	private static final String TAG = "krikur_MainActivity";
 
 	private static final Flugweg FLUGWEG = new Flugweg();
 
@@ -88,6 +88,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 				// TODO Auto-generated method stub
 				try {
 					drone.land();
+					Log.i(TAG, "LANDEN!!!!!!!");
 				} catch (Throwable e) {
 					Log.e(TAG, "Faliled to execute land command", e);
 				}
@@ -104,6 +105,25 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 			}
 		});
+
+		final DroneInfo di = new DroneInfo();
+
+		(findViewById(R.id.infoButton))
+				.setOnClickListener(new OnClickListener() {
+					boolean navDataListenerNichtInitialisiert = true;
+
+					@Override
+					public void onClick(View v) {
+
+						if (navDataListenerNichtInitialisiert) {
+							Log.i(TAG, "Initialisieren des NavDataListeners");
+							navDataListenerNichtInitialisiert = false;
+							drone.addNavDataListener(di);
+						}
+						Log.i(TAG, "Ich schmeiß jetzt jede Menge Infos raus!");
+						di.gibInfo();
+					}
+				});
 
 		sManager = (SensorManager) findViewById(R.id.bewegen).getContext()
 				.getSystemService(Context.SENSOR_SERVICE);
@@ -159,18 +179,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 	 * spin left.
 	 **/
 	private void drehen(float stärke) {
-
-		drone.addNavDataListener(new NavDataListener() {
-
-			@Override
-			public void navDataReceived(NavData nd) {
-
-				((TextView) findViewById(id.textView)).setText("Batterie: "
-						+ nd.getBattery());
-				((TextView) findViewById(id.textView)).setText("NavData: "
-						+ nd.toString());
-			}
-		});
 
 		String richtung = "keine";
 		if (stärke > 0) {
