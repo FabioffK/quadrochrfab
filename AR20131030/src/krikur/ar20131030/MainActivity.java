@@ -37,7 +37,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 	// Das er die Bewegung des Handys erkennt!
 	private Sensor sensor;
 	private SensorManager sManager;
-	private float drehstärke, seitwärts, vorwärts = (float) 0.0;
+	private float drehstärke = 0.0f, seitwärts = 0.0f, vorwärts = 0.0f;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +139,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		sensor = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		// /////////////Geschwindigkeit der Aktualisierung evtl. noch anpassen
 		sManager.registerListener(this, sensor,
-				SensorManager.SENSOR_DELAY_NORMAL);
+				SensorManager.SENSOR_DELAY_FASTEST);
 
 		// (findViewById(R.id.bewegen)).setOnClickListener(new OnClickListener()
 		// {
@@ -202,13 +202,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 		((TextView) findViewById(R.id.dreh)).setText("Richtung: " + richtung
 				+ ", Stärke: " + stärke);
 
-		/* nach neuem Konzept über Schnittstelle geregelt */
-		// try {
-		// drone.move(0, 0, 0, stärke);
-		// FLUGWEG.addFlugbefehl(new Flugbefehl(0, 0, 0, stärke));
-		// } catch (Throwable e) {
-		// Log.e(TAG, "Faliled to execute rechts command", e);
-		// }
 	}
 
 	private void startARDroneConnection(final Button btnConnect) {
@@ -239,7 +232,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		TextView seite = (TextView) findViewById(R.id.seite);
 		TextView vor = (TextView) findViewById(R.id.vorhinter);
 
-		String seitwärtsRichtung, vorwärtsRichtung;
+		String seitwärtsRichtung = "", vorwärtsRichtung = "";
 
 		if ((findViewById(R.id.bewegen)).isPressed()) {
 			seitwärts = event.values[0] * (-1);
@@ -256,20 +249,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 				vorwärtsRichtung = " A Vor A ";
 			}
 
-			seite.setText(seitwärtsRichtung + "(" + seitwärts + ")");
-			vor.setText(vorwärtsRichtung + "(" + vorwärts + ")");
-
-			/* nach neuem Konzept über Schnittstelle geregelt */
-			// try {
-			// drone.move(seitwärts, vorwärts, 0, 0);
-			// } catch (Throwable e) {
-			// Log.e(TAG, "Faliled to execute rechts command", e);
-			// }
-
 		} else {
 			seitwärts = 0;
 			vorwärts = 0;
 		}
+		seite.setText(seitwärtsRichtung + "(" + seitwärts + ")");
+		vor.setText(vorwärtsRichtung + "(" + vorwärts + ")");
 	}
 
 	@Override

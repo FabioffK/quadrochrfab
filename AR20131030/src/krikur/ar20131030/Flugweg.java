@@ -19,28 +19,6 @@ public class Flugweg {
 		flugwegObjekte.push(flugbefehl);
 	}
 
-	/* Aus altem Konzept ohne Thread */
-	//
-	// public static void home(ARDrone drone) {
-	// Log.i(TAG, "ich komm jetzt home");
-	// while (!flugwegObjekte.empty()) {
-	// flugbefehl = flugwegObjekte.pop();
-	// Log.i(TAG, "Hab soviel Speed: " + flugbefehl.getAngular_speed());
-	// try {
-	// drone.move(flugbefehl.getLeft_right_tilt(),
-	// flugbefehl.getFront_back_tilt(),
-	// flugbefehl.getVertical_speed(),
-	// flugbefehl.getAngular_speed());
-	// } catch (IOException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	//
-	// }
-	//
-	// }
-	// Log.i(TAG, "ich bin den Weg zurückgeflogen");
-	// }
-
 	public static Flugbefehl getEinzelnenFlugbefehl() {
 		try {
 			return flugwegObjekte.pop();
@@ -48,6 +26,12 @@ public class Flugweg {
 			return null;
 		}
 
+	}
+
+	public Integer nochFlugbefehle() {
+		// Log.i(TAG, "Es gibt noch " + flugwegObjekte.size()
+		// + " Flugbefehle bis home");
+		return flugwegObjekte.size();
 	}
 
 }
