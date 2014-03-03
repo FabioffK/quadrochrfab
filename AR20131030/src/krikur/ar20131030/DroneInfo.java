@@ -52,6 +52,7 @@ public class DroneInfo implements NavDataListener {
 	@Override
 	public void navDataReceived(NavData nd) {
 		this.nd = nd;
-		schnittstelle.setFliegt(nd.isFlying());
+		/* könnte Aufrufe bei Start und landen ersetzen */
+		// schnittstelle.setFliegt(nd.isFlying());
 	}
 }

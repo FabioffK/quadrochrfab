@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private static final long CONNECTION_TIMEOUT = 10000;
 	private static final String TAG = "krikur_MainActivity";
 
-//	private static final Flugweg FLUGWEG = new Flugweg();
+	// private static final Flugweg FLUGWEG = new Flugweg();
 
 	// Das er die Bewegung des Handys erkennt!
 	private Sensor sensor;
@@ -54,20 +54,22 @@ public class MainActivity extends Activity implements SensorEventListener {
 			}
 		});
 
-		Schnittstelle schnittstelle = new Schnittstelle();
+		final Schnittstelle schnittstelle = new Schnittstelle();
 		schnittstelle.setMain(this);
-		schnittstelle.setDrone(drone);
-		schnittstelle.run();
 
 		(findViewById(R.id.abheben)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				try {
+					Log.i(TAG, "Ich möchte jetzt die Drohne übergeben");
+					schnittstelle.setDrone(drone);
 					drone.clearEmergencySignal();
 					drone.trim();
 					drone.takeOff();
-					
+					schnittstelle.setFliegt(true);
+					schnittstelle.start();
+
 				} catch (Throwable e) {
 					Log.e(TAG, "Faliled to execute take off command", e);
 				}
@@ -90,7 +92,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 			@Override
 			public void onClick(View v) {
 				try {
+
 					drone.land();
+					schnittstelle.setFliegt(false);
 					Log.i(TAG, "LANDEN!!!!!!!");
 				} catch (Throwable e) {
 					Log.e(TAG, "Faliled to execute land command", e);
@@ -104,8 +108,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 			public void onClick(View v) {
 
 				Log.i(TAG, "Home wurde geklickt");
-				/*muss neu gemacht werden!!!*/
-//				Flugweg.home(drone);
+				schnittstelle.home();
+				/* muss neu gemacht werden!!! */
+				// Flugweg.home(drone);
 
 			}
 		});
@@ -261,6 +266,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 			// Log.e(TAG, "Faliled to execute rechts command", e);
 			// }
 
+		} else {
+			seitwärts = 0;
+			vorwärts = 0;
 		}
 	}
 
