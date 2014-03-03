@@ -14,7 +14,12 @@ import com.codeminders.ardrone.data.navdata.vision.VisionTag;
 
 public class DroneInfo implements NavDataListener {
 	private static final String TAGlog = "logINFO";
-	NavData nd = null;
+	private NavData nd = null;
+	private Schnittstelle schnittstelle;
+
+	public DroneInfo(Schnittstelle schnittstelle) {
+		this.schnittstelle = schnittstelle;
+	}
 
 	public void gibInfo() {
 
@@ -30,6 +35,7 @@ public class DroneInfo implements NavDataListener {
 			Log.i(TAGlog, "Yaw in Grad: " + nd.getYaw());
 			Log.i(TAGlog, "Sequence: " + nd.getSequence());
 			Log.i(TAGlog, "Vx: " + nd.getVx());
+			// wieso gibts kein y?
 			Log.i(TAGlog, "Vz: " + nd.getVz());
 			Log.i(TAGlog, "AngelsOutOufRange: " + nd.isAngelsOutOufRange());
 			Log.i(TAGlog,
@@ -39,13 +45,13 @@ public class DroneInfo implements NavDataListener {
 			Log.i(TAGlog, "ControlReceived: " + nd.isControlReceived());
 			Log.i(TAGlog, "fliegt: " + nd.isFlying());
 			Log.i(TAGlog, "zu viel Wind: " + nd.isTooMuchWind());
+
 		}
 	}
 
 	@Override
 	public void navDataReceived(NavData nd) {
 		this.nd = nd;
-		//Log.i(TAGlog, "Hab neue NavData erhalten");
-
+		schnittstelle.setFliegt(nd.isFlying());
 	}
 }

@@ -63,4 +63,5 @@ public class Flugbefehl {
 	public float getAngular_speed() {
 		return angular_speed;
 	}
+
 }

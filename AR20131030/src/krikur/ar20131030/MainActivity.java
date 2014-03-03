@@ -32,12 +32,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 	private static final long CONNECTION_TIMEOUT = 10000;
 	private static final String TAG = "krikur_MainActivity";
 
-	private static final Flugweg FLUGWEG = new Flugweg();
+//	private static final Flugweg FLUGWEG = new Flugweg();
 
 	// Das er die Bewegung des Handys erkennt!
 	private Sensor sensor;
 	private SensorManager sManager;
-	private float seitwärts, vorwärts;
+	private float drehstärke, seitwärts, vorwärts = (float) 0.0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +54,20 @@ public class MainActivity extends Activity implements SensorEventListener {
 			}
 		});
 
+		Schnittstelle schnittstelle = new Schnittstelle();
+		schnittstelle.setMain(this);
+		schnittstelle.setDrone(drone);
+		schnittstelle.run();
+
 		(findViewById(R.id.abheben)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				try {
 					drone.clearEmergencySignal();
 					drone.trim();
 					drone.takeOff();
+					
 				} catch (Throwable e) {
 					Log.e(TAG, "Faliled to execute take off command", e);
 				}
@@ -73,7 +78,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 		//
 		// @Override
 		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
 		// try {
 		// drone.move(0, 0, 0, 0.15f);
 		// } catch (Throwable e) {
@@ -85,7 +89,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				try {
 					drone.land();
 					Log.i(TAG, "LANDEN!!!!!!!");
@@ -101,12 +104,13 @@ public class MainActivity extends Activity implements SensorEventListener {
 			public void onClick(View v) {
 
 				Log.i(TAG, "Home wurde geklickt");
-				Flugweg.home(drone);
+				/*muss neu gemacht werden!!!*/
+//				Flugweg.home(drone);
 
 			}
 		});
 
-		final DroneInfo di = new DroneInfo();
+		final DroneInfo di = new DroneInfo(schnittstelle);
 
 		(findViewById(R.id.infoButton))
 				.setOnClickListener(new OnClickListener() {
@@ -137,7 +141,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 		// //
 		// @Override
 		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
 		//
 		// Toast.makeText(v.getContext(), "Du hast geklickt",
 		// Toast.LENGTH_SHORT).show();
@@ -150,7 +153,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
-						// TODO Auto-generated method stub
 						seekBar.setProgress(10000);
 						drehen(0);
 
@@ -158,16 +160,18 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 					@Override
 					public void onStartTrackingTouch(SeekBar seekBar) {
-						// TODO Auto-generated method stub
 
 					}
 
 					@Override
 					public void onProgressChanged(SeekBar seekBar,
 							int progress, boolean fromUser) {
-						// TODO Auto-generated method stub
 						float stärke = 0.0001f * progress - 1;
+						drehstärke = stärke;
+
+						/* eig. veraltet */
 						drehen(stärke);
+
 					}
 
 				});
@@ -193,12 +197,13 @@ public class MainActivity extends Activity implements SensorEventListener {
 		((TextView) findViewById(R.id.dreh)).setText("Richtung: " + richtung
 				+ ", Stärke: " + stärke);
 
-		try {
-			drone.move(0, 0, 0, stärke);
-			FLUGWEG.addFlugbefehl(new Flugbefehl(0, 0, 0, stärke));
-		} catch (Throwable e) {
-			Log.e(TAG, "Faliled to execute rechts command", e);
-		}
+		/* nach neuem Konzept über Schnittstelle geregelt */
+		// try {
+		// drone.move(0, 0, 0, stärke);
+		// FLUGWEG.addFlugbefehl(new Flugbefehl(0, 0, 0, stärke));
+		// } catch (Throwable e) {
+		// Log.e(TAG, "Faliled to execute rechts command", e);
+		// }
 	}
 
 	private void startARDroneConnection(final Button btnConnect) {
@@ -219,7 +224,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 	// fürSensorManager
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -235,6 +239,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		if ((findViewById(R.id.bewegen)).isPressed()) {
 			seitwärts = event.values[0] * (-1);
 			vorwärts = event.values[1];
+
 			if (seitwärts > 0) {
 				seitwärtsRichtung = " --> RECHTS ";
 			} else {
@@ -249,11 +254,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 			seite.setText(seitwärtsRichtung + "(" + seitwärts + ")");
 			vor.setText(vorwärtsRichtung + "(" + vorwärts + ")");
 
-			try {
-				drone.move(seitwärts, vorwärts, 0, 0);
-			} catch (Throwable e) {
-				Log.e(TAG, "Faliled to execute rechts command", e);
-			}
+			/* nach neuem Konzept über Schnittstelle geregelt */
+			// try {
+			// drone.move(seitwärts, vorwärts, 0, 0);
+			// } catch (Throwable e) {
+			// Log.e(TAG, "Faliled to execute rechts command", e);
+			// }
 
 		}
 	}
@@ -308,6 +314,18 @@ public class MainActivity extends Activity implements SensorEventListener {
 		// connectButton.setEnabled(true);
 		// }
 		// }
+	}
+
+	public float getDrehstärke() {
+		return drehstärke;
+	}
+
+	public float getSeitwärts() {
+		return seitwärts;
+	}
+
+	public float getVorwärts() {
+		return vorwärts;
 	}
 
 }
