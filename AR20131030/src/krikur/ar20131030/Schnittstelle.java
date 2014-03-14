@@ -41,7 +41,7 @@ public class Schnittstelle extends Thread {
 					float left_right = mainActivity.getSeitwärts();
 					float drehwinkel = mainActivity.getDrehstärke();
 
-					//nicht beachten den Schwebefluges....
+					//nicht beachten den Schwebefluges.... (längerer Heimflug, dafür genauer)
 					/*if (front_back == 0.0f && drehwinkel == 0.0f
 							&& left_right == 0.0f && höhe == 0.0f) {
 						Log.i(TAG,
