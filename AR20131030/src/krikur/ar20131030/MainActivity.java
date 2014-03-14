@@ -96,6 +96,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 					drone.land();
 					schnittstelle.setFliegt(false);
 					Log.i(TAG, "LANDEN!!!!!!!");
+					schnittstelle.stackleeren();
 				} catch (Throwable e) {
 					Log.e(TAG, "Faliled to execute land command", e);
 				}
@@ -109,6 +110,20 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 				Log.i(TAG, "Home wurde geklickt");
 				schnittstelle.home();
+				/* muss neu gemacht werden!!! */
+				// Flugweg.home(drone);
+
+			}
+		});
+		
+		
+		(findViewById(R.id.stackLeeren)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				Log.i(TAG, "Stack für Heimflug wurde gelöscht");
+				schnittstelle.stackleeren();
 				/* muss neu gemacht werden!!! */
 				// Flugweg.home(drone);
 

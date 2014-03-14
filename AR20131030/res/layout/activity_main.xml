@@ -105,4 +105,13 @@
         android:layout_centerHorizontal="true"
         android:text="logINFO" />
 
+    <Button
+        android:id="@+id/stackLeeren"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/infoButton"
+        android:layout_alignBottom="@+id/infoButton"
+        android:layout_toRightOf="@+id/infoButton"
+        android:text="Heimweg löschen" />
+
 </RelativeLayout>

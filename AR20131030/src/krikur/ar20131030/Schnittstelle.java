@@ -41,16 +41,17 @@ public class Schnittstelle extends Thread {
 					float left_right = mainActivity.getSeitwärts();
 					float drehwinkel = mainActivity.getDrehstärke();
 
-					if (front_back == 0.0f && drehwinkel == 0.0f
+					//nicht beachten den Schwebefluges....
+					/*if (front_back == 0.0f && drehwinkel == 0.0f
 							&& left_right == 0.0f && höhe == 0.0f) {
 						Log.i(TAG,
 								"Flugbefehl ohne Bewegung --> nicht beachtet");
-					} else {
+					} else {*/
 						Flugbefehl flugbefehl = new Flugbefehl(left_right,
 								front_back, höhe, drehwinkel);
 						flugweg.addFlugbefehl(flugbefehl);
 						flieg(flugbefehl);
-					}
+					//}
 				}
 
 			}
@@ -122,5 +123,9 @@ public class Schnittstelle extends Thread {
 
 		this.drone = drone;
 		Log.i(TAG, "Ich habe das Drohnenobjekt erhalten");
+	}
+
+	public void stackleeren() {
+		flugweg.leereFlugbefehl();
 	}
 }

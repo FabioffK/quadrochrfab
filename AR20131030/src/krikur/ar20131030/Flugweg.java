@@ -5,6 +5,8 @@ import java.util.Stack;
 
 import android.support.v4.util.LogWriter;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.codeminders.ardrone.ARDrone;
 import com.codeminders.ardrone.NavData;
@@ -19,7 +21,7 @@ public class Flugweg {
 		flugwegObjekte.push(flugbefehl);
 	}
 
-	public static Flugbefehl getEinzelnenFlugbefehl() {
+	public Flugbefehl getEinzelnenFlugbefehl() {
 		try {
 			return flugwegObjekte.pop();
 		} catch (Exception e) {
@@ -32,6 +34,11 @@ public class Flugweg {
 		// Log.i(TAG, "Es gibt noch " + flugwegObjekte.size()
 		// + " Flugbefehle bis home");
 		return flugwegObjekte.size();
+	}
+
+	public void leereFlugbefehl() {
+		flugwegObjekte.clear();
+		Log.i(TAG, "Flugweg wurde gelöscht!");
 	}
 
 }
