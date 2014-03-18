@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
@@ -69,7 +70,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 					drone.takeOff();
 					schnittstelle.setFliegt(true);
 					schnittstelle.start();
-
+					btnConnect.setEnabled(false);
 				} catch (Throwable e) {
 					Log.e(TAG, "Faliled to execute take off command", e);
 				}
@@ -97,6 +98,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 					schnittstelle.setFliegt(false);
 					Log.i(TAG, "LANDEN!!!!!!!");
 					schnittstelle.stackleeren();
+					btnConnect.setEnabled(true);
 				} catch (Throwable e) {
 					Log.e(TAG, "Faliled to execute land command", e);
 				}
@@ -222,15 +224,15 @@ public class MainActivity extends Activity implements SensorEventListener {
 		WifiManager connManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 
 		if (connManager.isWifiEnabled()) {
-			// state.setTextColor(Color.RED);
-			// state.setText("Connecting..." +
-			// connManager.getConnectionInfo().getSSID());
-			btnConnect.setEnabled(false);
+
+			/*Macht Verbinden-Button "grau" wird jetzt bei landen und abheben geregelt*/
+			//btnConnect.setEnabled(false);
+			
 			(new DroneStarter()).execute(MainActivity.drone);
 		}
-		// else {
-		// turnOnWiFiDialog.show();
-		// }
+		 else {
+		Toast.makeText(getContext(), "Verbindung hat nicht hingehauen", Toast.LENGTH_SHORT);
+		 }
 	}
 
 	// fürSensorManager
