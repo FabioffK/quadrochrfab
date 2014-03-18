@@ -7,6 +7,7 @@ import android.support.v4.util.LogWriter;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.codeminders.ardrone.ARDrone;
 import com.codeminders.ardrone.NavData;
@@ -39,6 +40,7 @@ public class Flugweg {
 	public void leereFlugbefehl() {
 		flugwegObjekte.clear();
 		Log.i(TAG, "Flugweg wurde gelöscht!");
+		
 	}
 
 }

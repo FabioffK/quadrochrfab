@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/rechts"
         android:layout_below="@+id/dreh"
-        android:text="bewegen" />
+        android:text="\n bewegen \n" />
     
         <Button
         android:id="@+id/home"
@@ -98,20 +98,19 @@
         android:text="Drehung" />
 
     <Button
-        android:id="@+id/infoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/verbinden"
-        android:layout_centerHorizontal="true"
-        android:text="logINFO" />
-
-    <Button
         android:id="@+id/stackLeeren"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/infoButton"
-        android:layout_alignBottom="@+id/infoButton"
-        android:layout_toRightOf="@+id/infoButton"
+        android:layout_alignRight="@+id/seekBar1"
+        android:layout_below="@+id/textView"
         android:text="Heimweg löschen" />
+
+    <Button
+        android:id="@+id/infoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/home"
+        android:layout_alignRight="@+id/stackLeeren"
+        android:text="logINFO" />
 
 </RelativeLayout>

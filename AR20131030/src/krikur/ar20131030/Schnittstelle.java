@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.codeminders.ardrone.ARDrone;
 
 import android.util.Log;
+import android.widget.Toast;
 
 public class Schnittstelle extends Thread {
 	private static final String TAG = "Schnittstelle";
@@ -20,6 +21,8 @@ public class Schnittstelle extends Thread {
 
 	@Override
 	public void run() {
+		
+		
 		// ÄNDERUNGFlugbefehl keinFlugbefehl = new Flugbefehl(0, 0, 0, 0);
 		while (true) {
 			// Log.i(TAG, "ich möchte warten");
@@ -34,7 +37,6 @@ public class Schnittstelle extends Thread {
 				// Log.i(TAG, "Sammeln der Flugbefehle");
 				if (fliegheim) {
 					fliegHeim();
-
 				} else {
 					float höhe = 0.0f;
 					float front_back = mainActivity.getVorwärts();
@@ -127,5 +129,6 @@ public class Schnittstelle extends Thread {
 
 	public void stackleeren() {
 		flugweg.leereFlugbefehl();
+		Toast.makeText(mainActivity.getContext(), "bisheriger Flugweg aus Speicher entfernt", Toast.LENGTH_SHORT);
 	}
 }

@@ -122,10 +122,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 			@Override
 			public void onClick(View v) {
 
-				Log.i(TAG, "Stack für Heimflug wurde gelöscht");
+				Log.i(TAG, "Stack für Heimflug soll gelöscht werden");
 				schnittstelle.stackleeren();
-				/* muss neu gemacht werden!!! */
-				// Flugweg.home(drone);
+				
 
 			}
 		});
@@ -189,7 +188,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 						float stärke = 0.0001f * progress - 1;
 						drehstärke = stärke;
 
-						/* eig. veraltet */
+						/*nur (noch) für die Anzeige auf dem Bildschirm verantwortlich*/
 						drehen(stärke);
 
 					}
@@ -336,4 +335,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 		return vorwärts;
 	}
 
+	public Context getContext(){
+		return this.getContext();
+	}
+	
 }
