@@ -8,18 +8,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
     <Button
         android:id="@+id/verbinden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_below="@+id/textView"
         android:text="verbinden" />
 
     <Button
@@ -55,8 +47,8 @@
         android:layout_alignLeft="@+id/rechts"
         android:layout_below="@+id/dreh"
         android:text="\n bewegen \n" />
-    
-        <Button
+
+    <Button
         android:id="@+id/home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,7 +94,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/seekBar1"
-        android:layout_below="@+id/textView"
         android:text="Heimweg löschen" />
 
     <Button
@@ -112,5 +103,13 @@
         android:layout_above="@+id/home"
         android:layout_alignRight="@+id/stackLeeren"
         android:text="logINFO" />
+
+    <Switch
+        android:id="@+id/schwebeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/infoButton"
+        android:text="schweben" />
 
 </RelativeLayout>

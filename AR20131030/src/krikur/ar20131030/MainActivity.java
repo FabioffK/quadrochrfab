@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -117,19 +118,18 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 			}
 		});
-		
-		
-		(findViewById(R.id.stackLeeren)).setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+		(findViewById(R.id.stackLeeren))
+				.setOnClickListener(new OnClickListener() {
 
-				Log.i(TAG, "Stack für Heimflug soll gelöscht werden");
-				schnittstelle.stackleeren();
-				
+					@Override
+					public void onClick(View v) {
 
-			}
-		});
+						Log.i(TAG, "Stack für Heimflug soll gelöscht werden");
+						schnittstelle.stackleeren();
+
+					}
+				});
 
 		final DroneInfo di = new DroneInfo(schnittstelle);
 
@@ -190,7 +190,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 						float stärke = 0.0001f * progress - 1;
 						drehstärke = stärke;
 
-						/*nur (noch) für die Anzeige auf dem Bildschirm verantwortlich*/
+						/*
+						 * nur (noch) für die Anzeige auf dem Bildschirm
+						 * verantwortlich
+						 */
 						drehen(stärke);
 
 					}
@@ -225,14 +228,17 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 		if (connManager.isWifiEnabled()) {
 
-			/*Macht Verbinden-Button "grau" wird jetzt bei landen und abheben geregelt*/
-			//btnConnect.setEnabled(false);
-			
+			/*
+			 * Macht Verbinden-Button "grau" wird jetzt bei landen und abheben
+			 * geregelt
+			 */
+			// btnConnect.setEnabled(false);
+
 			(new DroneStarter()).execute(MainActivity.drone);
+		} else {
+			Toast.makeText(getContext(), "Verbindung hat nicht hingehauen",
+					Toast.LENGTH_SHORT);
 		}
-		 else {
-		Toast.makeText(getContext(), "Verbindung hat nicht hingehauen", Toast.LENGTH_SHORT);
-		 }
 	}
 
 	// fürSensorManager
@@ -337,8 +343,13 @@ public class MainActivity extends Activity implements SensorEventListener {
 		return vorwärts;
 	}
 
-	public Context getContext(){
+	public Context getContext() {
 		return this.getContext();
 	}
-	
+
+	public boolean schwebeflugSpeichern() {
+
+		return ((Switch) (findViewById(R.id.schwebeSwitch))).isChecked();
+	}
+
 }

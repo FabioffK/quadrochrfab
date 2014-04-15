@@ -5,6 +5,8 @@ import java.io.IOException;
 import com.codeminders.ardrone.ARDrone;
 
 import android.util.Log;
+import android.webkit.WebView.FindListener;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class Schnittstelle extends Thread {
@@ -21,6 +23,7 @@ public class Schnittstelle extends Thread {
 
 	@Override
 	public void run() {
+
 		
 		
 		// ÄNDERUNGFlugbefehl keinFlugbefehl = new Flugbefehl(0, 0, 0, 0);
@@ -43,17 +46,20 @@ public class Schnittstelle extends Thread {
 					float left_right = mainActivity.getSeitwärts();
 					float drehwinkel = mainActivity.getDrehstärke();
 
-					//nicht beachten den Schwebefluges.... (längerer Heimflug, dafür genauer)
-					/*if (front_back == 0.0f && drehwinkel == 0.0f
+					// nicht beachten den Schwebefluges.... (längerer Heimflug,
+					// dafür genauer)
+					if (front_back == 0.0f && drehwinkel == 0.0f
 							&& left_right == 0.0f && höhe == 0.0f) {
-						Log.i(TAG,
-								"Flugbefehl ohne Bewegung --> nicht beachtet");
-					} else {*/
-						Flugbefehl flugbefehl = new Flugbefehl(left_right,
-								front_back, höhe, drehwinkel);
-						flugweg.addFlugbefehl(flugbefehl);
-						flieg(flugbefehl);
-					//}
+						if (mainActivity.schwebeflugSpeichern()) {
+							Log.i(TAG,
+									"Flugbefehl ohne Bewegung --> nicht beachtet");
+						} else {
+							Flugbefehl flugbefehl = new Flugbefehl(left_right,
+									front_back, höhe, drehwinkel);
+							flugweg.addFlugbefehl(flugbefehl);
+							flieg(flugbefehl);
+						}
+					}
 				}
 
 			}
@@ -129,6 +135,7 @@ public class Schnittstelle extends Thread {
 
 	public void stackleeren() {
 		flugweg.leereFlugbefehl();
-		Toast.makeText(mainActivity.getContext(), "bisheriger Flugweg aus Speicher entfernt", Toast.LENGTH_SHORT);
+		Toast.makeText(mainActivity.getContext(),
+				"bisheriger Flugweg aus Speicher entfernt", Toast.LENGTH_SHORT);
 	}
 }
