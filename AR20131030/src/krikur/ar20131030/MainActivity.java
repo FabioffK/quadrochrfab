@@ -127,6 +127,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 						Log.i(TAG, "Stack für Heimflug soll gelöscht werden");
 						schnittstelle.stackleeren();
+						Toast.makeText(v.getContext(),
+								"bisheriger Flugweg aus Speicher entfernt", Toast.LENGTH_SHORT);
 
 					}
 				});

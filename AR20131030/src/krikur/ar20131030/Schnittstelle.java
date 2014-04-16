@@ -24,8 +24,6 @@ public class Schnittstelle extends Thread {
 	@Override
 	public void run() {
 
-		
-		
 		// ÄNDERUNGFlugbefehl keinFlugbefehl = new Flugbefehl(0, 0, 0, 0);
 		while (true) {
 			// Log.i(TAG, "ich möchte warten");
@@ -48,17 +46,16 @@ public class Schnittstelle extends Thread {
 
 					// nicht beachten den Schwebefluges.... (längerer Heimflug,
 					// dafür genauer)
-					if (front_back == 0.0f && drehwinkel == 0.0f
+					if (!mainActivity.schwebeflugSpeichern()
+							&& front_back == 0.0f && drehwinkel == 0.0f
 							&& left_right == 0.0f && höhe == 0.0f) {
-						if (mainActivity.schwebeflugSpeichern()) {
-							Log.i(TAG,
-									"Flugbefehl ohne Bewegung --> nicht beachtet");
-						} else {
-							Flugbefehl flugbefehl = new Flugbefehl(left_right,
-									front_back, höhe, drehwinkel);
-							flugweg.addFlugbefehl(flugbefehl);
-							flieg(flugbefehl);
-						}
+						Log.i(TAG,
+								"Flugbefehl ohne Bewegung --> nicht beachtet");
+					} else {
+						Flugbefehl flugbefehl = new Flugbefehl(left_right,
+								front_back, höhe, drehwinkel);
+						flugweg.addFlugbefehl(flugbefehl);
+						flieg(flugbefehl);
 					}
 				}
 
@@ -122,7 +119,6 @@ public class Schnittstelle extends Thread {
 							+ " höhe: " + flugbefehl.getVertical_speed()
 							+ " dreh: " + flugbefehl.getAngular_speed());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			Log.e(TAG, "Flugbefehl konnte nicht gesendet werden: " + e);
 		}
 	}
@@ -135,7 +131,6 @@ public class Schnittstelle extends Thread {
 
 	public void stackleeren() {
 		flugweg.leereFlugbefehl();
-		Toast.makeText(mainActivity.getContext(),
-				"bisheriger Flugweg aus Speicher entfernt", Toast.LENGTH_SHORT);
+	
 	}
 }
