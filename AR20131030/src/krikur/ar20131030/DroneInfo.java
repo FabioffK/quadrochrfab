@@ -1,17 +1,16 @@
 package krikur.ar20131030;
 
-import java.util.List;
-
 import android.util.Log;
 
 import com.codeminders.ardrone.NavData;
 import com.codeminders.ardrone.NavDataListener;
-import com.codeminders.ardrone.data.navdata.ControlAlgorithm;
-import com.codeminders.ardrone.data.navdata.CtrlState;
-import com.codeminders.ardrone.data.navdata.FlyingState;
-import com.codeminders.ardrone.data.navdata.Mode;
-import com.codeminders.ardrone.data.navdata.vision.VisionTag;
 
+/**
+ * *Diese Klasse dient ausschließlich dem Empfangen und loggen der
+ * navData-Informationen der Drohne
+ * 
+ * @author xce35d6
+ */
 public class DroneInfo implements NavDataListener {
 	private static final String TAGlog = "logINFO";
 	private NavData nd = null;
@@ -21,6 +20,9 @@ public class DroneInfo implements NavDataListener {
 		this.schnittstelle = schnittstelle;
 	}
 
+	/**
+	 * diese Methode splittet die Log-Informationen auf und gibt sie kommentiert im Log aus.
+	 */
 	public void gibInfo() {
 
 		if (nd != null) {
@@ -52,7 +54,7 @@ public class DroneInfo implements NavDataListener {
 	@Override
 	public void navDataReceived(NavData nd) {
 		this.nd = nd;
-		/* könnte Aufrufe bei Start und landen ersetzen */
+		/* könnte Aufrufe bei Start und landen ersetzen?! */
 		// schnittstelle.setFliegt(nd.isFlying());
 	}
 }

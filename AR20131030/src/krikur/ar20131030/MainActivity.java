@@ -28,19 +28,30 @@ import com.codeminders.ardrone.ARDrone;
 import com.codeminders.ardrone.NavData;
 import com.codeminders.ardrone.NavDataListener;
 
+/**
+ * Wird beim Start der App ausgeführt.. ist für die Verbindung zur Drohne
+ * verantwortlich.. bearbeitete Berührungen auf dem Bildschirm (Button-Klicks
+ * etc.).. und ist für den Lagesensor verantwortlich.
+ * 
+ * **Hält die Informationen bereit, wie die Drohne zu fligen hat**
+ * 
+ * @author xce35d6
+ * 
+ */
 public class MainActivity extends Activity implements SensorEventListener {
 
 	private static ARDrone drone;
 	private static final long CONNECTION_TIMEOUT = 10000;
 	private static final String TAG = "krikur_MainActivity";
 
-	// private static final Flugweg FLUGWEG = new Flugweg();
-
 	// Das er die Bewegung des Handys erkennt!
 	private Sensor sensor;
 	private SensorManager sManager;
 	private float drehstärke = 0.0f, seitwärts = 0.0f, vorwärts = 0.0f;
 
+	/**
+	 * Start-Methode
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,6 +70,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 		final Schnittstelle schnittstelle = new Schnittstelle();
 		schnittstelle.setMain(this);
 
+		/**
+		 * ++ABHEBEN-BUTTON++
+		 */
 		(findViewById(R.id.abheben)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -77,18 +91,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 				}
 			}
 		});
-		// (findViewById(R.id.rechts)).setOnClickListener(new OnClickListener()
-		// {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// try {
-		// drone.move(0, 0, 0, 0.15f);
-		// } catch (Throwable e) {
-		// Log.e(TAG, "Faliled to execute rechts command", e);
-		// }
-		// }
-		// });
+
+		/**
+		 * ++LANDEN-BUTTON++
+		 */
 		(findViewById(R.id.landen)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -106,6 +112,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 			}
 		});
 
+		/**
+		 * ++HOME-BUTTON++
+		 */
 		(findViewById(R.id.home)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -113,12 +122,13 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 				Log.i(TAG, "Home wurde geklickt");
 				schnittstelle.home();
-				/* muss neu gemacht werden!!! */
-				// Flugweg.home(drone);
 
 			}
 		});
 
+		/**
+		 * ++HEIMWEG-LÖSCHEN-BUTTON++
+		 */
 		(findViewById(R.id.stackLeeren))
 				.setOnClickListener(new OnClickListener() {
 
@@ -128,13 +138,16 @@ public class MainActivity extends Activity implements SensorEventListener {
 						Log.i(TAG, "Stack für Heimflug soll gelöscht werden");
 						schnittstelle.stackleeren();
 						Toast.makeText(v.getContext(),
-								"bisheriger Flugweg aus Speicher entfernt", Toast.LENGTH_SHORT);
+								"bisheriger Flugweg aus Speicher entfernt",
+								Toast.LENGTH_SHORT);
 
 					}
 				});
 
 		final DroneInfo di = new DroneInfo(schnittstelle);
-
+		/**
+		 * ++LOGINFO-BUTTON++
+		 */
 		(findViewById(R.id.infoButton))
 				.setOnClickListener(new OnClickListener() {
 					boolean navDataListenerNichtInitialisiert = true;
@@ -155,22 +168,14 @@ public class MainActivity extends Activity implements SensorEventListener {
 		sManager = (SensorManager) findViewById(R.id.bewegen).getContext()
 				.getSystemService(Context.SENSOR_SERVICE);
 		sensor = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		// /////////////Geschwindigkeit der Aktualisierung evtl. noch anpassen
+		// /////////////Geschwindigkeit der Aktualisierung des Lagesensors hier
+		// anpassbar
 		sManager.registerListener(this, sensor,
 				SensorManager.SENSOR_DELAY_FASTEST);
 
-		// (findViewById(R.id.bewegen)).setOnClickListener(new OnClickListener()
-		// {
-		// //
-		// @Override
-		// public void onClick(View v) {
-		//
-		// Toast.makeText(v.getContext(), "Du hast geklickt",
-		// Toast.LENGTH_SHORT).show();
-		// }
-		//
-		// });
-
+		/**
+		 * ++SEEKBAR-Listener++ (Drohne drehen)
+		 */
 		((SeekBar) findViewById(R.id.seekBar1))
 				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
@@ -225,6 +230,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 	}
 
+	/**
+	 * stellt eine Verbindung vom Android-Gerät zur Drohne her
+	 * 
+	 * @param btnConnect
+	 *            --> wird nicht mehr benötigt
+	 */
 	private void startARDroneConnection(final Button btnConnect) {
 		WifiManager connManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 
@@ -243,13 +254,17 @@ public class MainActivity extends Activity implements SensorEventListener {
 		}
 	}
 
-	// fürSensorManager
+	/**
+	 * fürSensorManager
+	 */
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
 	}
 
-	// fürSensorManager
+	/**
+	 * fürSensorManager
+	 */
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 
@@ -288,6 +303,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 		return true;
 	}
 
+	/**
+	 * Innere Klasse, die der Kommunikation zur Drohne dient
+	 * 
+	 * @author xce35d6
+	 * 
+	 */
 	private class DroneStarter extends AsyncTask<ARDrone, Integer, Boolean> {
 
 		@Override
@@ -333,14 +354,26 @@ public class MainActivity extends Activity implements SensorEventListener {
 		// }
 	}
 
+	/**
+	 * 
+	 * @return Bereitgestellen von Fluginformation für Schnittstelle
+	 */
 	public float getDrehstärke() {
 		return drehstärke;
 	}
 
+	/**
+	 * 
+	 * @return Bereitgestellen von Fluginformation für Schnittstelle
+	 */
 	public float getSeitwärts() {
 		return seitwärts;
 	}
 
+	/**
+	 * 
+	 * @return Bereitgestellen von Fluginformation für Schnittstelle
+	 */
 	public float getVorwärts() {
 		return vorwärts;
 	}
@@ -349,6 +382,11 @@ public class MainActivity extends Activity implements SensorEventListener {
 		return this.getContext();
 	}
 
+	/**
+	 * 
+	 * @return gibt an, ob der Schwebeflug in den Flugweg-Stack gespeichert
+	 *         werden soll oder nicht
+	 */
 	public boolean schwebeflugSpeichern() {
 
 		return ((Switch) (findViewById(R.id.schwebeSwitch))).isChecked();

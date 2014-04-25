@@ -1,0 +1,16 @@
+com.codeminders.ardrone
+com.codeminders.ardrone.commands
+com.codeminders.ardrone.controllers
+com.codeminders.ardrone.controllers.decoders
+com.codeminders.ardrone.data
+com.codeminders.ardrone.data.decoder.ardrone10
+com.codeminders.ardrone.data.decoder.ardrone10.navdata
+com.codeminders.ardrone.data.decoder.ardrone10.video
+com.codeminders.ardrone.data.logger
+com.codeminders.ardrone.data.navdata
+com.codeminders.ardrone.data.navdata.vision
+com.codeminders.ardrone.data.reader
+com.codeminders.ardrone.examples
+com.codeminders.ardrone.version
+com.codeminders.ardrone.version.ftp
+krikur.ar20131030

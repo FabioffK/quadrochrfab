@@ -9,6 +9,13 @@ import android.webkit.WebView.FindListener;
 import android.widget.Switch;
 import android.widget.Toast;
 
+/**
+ * Übernimmt die Flugbefehlübertragung an die Drohne (in für die Drohne
+ * angemessenen Zeitintervallen)
+ * 
+ * @author xce35d6
+ * 
+ */
 public class Schnittstelle extends Thread {
 	private static final String TAG = "Schnittstelle";
 
@@ -21,6 +28,11 @@ public class Schnittstelle extends Thread {
 
 	private boolean fliegheim = false;
 
+	/**
+	 * Methode, die Beim Start ausgeführt wird und dann in regelmäßigen
+	 * Abständen bei der MainActivity die Fluginformationen abholt, an die
+	 * Drohne sendet und sie für den Heimflug an Flugweg sendet zum abspeichern.
+	 */
 	@Override
 	public void run() {
 
@@ -65,10 +77,16 @@ public class Schnittstelle extends Thread {
 
 	}
 
+	/**
+	 * nach Aufruf wird Heimflug begonnen
+	 */
 	public void home() {
 		fliegheim = true;
 	}
 
+	/**
+	 * Methode, die den Heimflug regelt
+	 */
 	private void fliegHeim() {
 		// Log.i(TAG, "Bin aufem Heimweg");
 		/*
@@ -123,14 +141,23 @@ public class Schnittstelle extends Thread {
 		}
 	}
 
+	/**
+	 * 
+	 * @param drone
+	 *            Drohnen-Objekt, mit der die Schnittstelle dann kommunizieren
+	 *            kann
+	 */
 	public void setDrone(ARDrone drone) {
 
 		this.drone = drone;
 		Log.i(TAG, "Ich habe das Drohnenobjekt erhalten");
 	}
 
+	/**
+	 * löscht Heimweg
+	 */
 	public void stackleeren() {
 		flugweg.leereFlugbefehl();
-	
+
 	}
 }

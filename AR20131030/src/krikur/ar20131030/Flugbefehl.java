@@ -1,10 +1,9 @@
 package krikur.ar20131030;
 
-// Test
 /**
- * 
- * @author xce35d6
- * 
+ * Klasse, die in der Methode Flugbefehl eine einheitliche
+ *         Schnittstelle für alle Flugbefehle bietet
+ * @author xce35d6 
  */
 public class Flugbefehl {
 	private float left_right_tilt;
